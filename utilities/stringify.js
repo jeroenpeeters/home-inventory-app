@@ -1,0 +1,17 @@
+export default ( obj ) => {
+  if ( _.isArray( obj ) || !_.isObject( obj ) ) {
+    return obj.toString()
+  }
+  var seen = [];
+  return JSON.stringify(
+    obj,
+    function( key, val ) {
+      if (val != null && typeof val == "object") {
+        if ( seen.indexOf( val ) >= 0 )
+          return
+          seen.push( val )
+          }
+      return val
+    }
+  );
+}
