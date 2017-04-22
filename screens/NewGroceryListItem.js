@@ -1,14 +1,14 @@
 import * as Exponent from 'exponent';
 import React, { Component } from 'react';
-import { TextInput } from 'react-native';
 import { Container, Content, ListItem, Text } from 'native-base';
-import * as firebase from 'firebase';
-import stringify from '../utilities/stringify'
+import { Header, Title, Footer, FooterTab, Button, Left, Right, Body, Icon, getTheme, InputGroup } from 'native-base';
+import { Form, Item, Input, Label, Picker } from 'native-base';
+const PickerItem = Picker.Item
 
-import { Header, Title, Footer, FooterTab, Button, Left, Right, Body, Icon, getTheme } from 'native-base';
-import { Form, Item, Input, Label } from 'native-base';
-
-const NewInventoryItemScreen = React.createClass({
+export default React.createClass({
+  onValueChange(a,b,c){
+    console.log('onValueChange',a,b,c);
+  },
   render() {
     const color = getTheme().variables.brandPrimary;
     return (
@@ -36,6 +36,21 @@ const NewInventoryItemScreen = React.createClass({
               <Label>Description</Label>
               <Input style={{paddingLeft:5}} onChangeText={this.props.onDescriptionChange}  />
             </Item>
+            <Item>
+              <Input placeholder='Quantity' keyboardType="numeric" onChangeText={this.props.onDescriptionChange}  />
+              <Content>
+                <Picker
+                    iosHeader="Select one"
+                    mode="dropdown"
+                    selectedValue='x'
+                    onValueChange={this.onValueChange}>
+                    <PickerItem label="X" value="x" />
+                    <PickerItem label="gram" value="gr" />
+                    <PickerItem label="kilo" value="k" />
+                </Picker>
+              </Content>
+            </Item>
+
             {/* <Item floatingLabel last>
               <Label>Quantity</Label>
               <Input onChangeText={this.props.onDescriptionChange}/>
@@ -46,5 +61,3 @@ const NewInventoryItemScreen = React.createClass({
     );
   }
 });
-
-export default NewInventoryItemScreen;

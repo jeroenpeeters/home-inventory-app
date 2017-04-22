@@ -18,14 +18,19 @@ import {
 import Alerts from '../constants/Alerts';
 import Colors from '../constants/Colors';
 import registerForPushNotificationsAsync from '../api/registerForPushNotificationsAsync';
+import FirebaseDb from '../utilities/Firebase';
 
 export default class RootNavigation extends React.Component {
   componentDidMount() {
-    this._notificationSubscription = this._registerForPushNotifications();
+    FirebaseDb.onGroceryListItemAdded( (item) => {
+      this.props.navigator.showLocalAlert(
+        `Item ${item.name} added to grocery list!`,
+        Alerts.notice
+      );
+    })
   }
 
   componentWillUnmount() {
-    this._notificationSubscription && this._notificationSubscription.remove();
   }
 
   render() {
@@ -58,23 +63,6 @@ export default class RootNavigation extends React.Component {
     );
   }
 
-  _registerForPushNotifications() {
-    // Send our push token over to our backend so we can receive notifications
-    // You can comment the following line out if you want to stop receiving
-    // a notification every time you open the app. Check out the source
-    // for this function in api/registerForPushNotificationsAsync.js
-    registerForPushNotificationsAsync();
-
-    // Watch for incoming notifications
-    this._notificationSubscription = Notifications.addListener(this._handleNotification);
-  }
-
-  _handleNotification = ({origin, data}) => {
-    this.props.navigator.showLocalAlert(
-      `Push notification ${origin} with data: ${JSON.stringify(data)}`,
-      Alerts.notice
-    );
-  }
 }
 
 const styles = StyleSheet.create({

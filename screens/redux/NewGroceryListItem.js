@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import Firebase from '../../utilities/Firebase'
-import NewInventoryItemScreen from '../NewInventoryItemScreen'
+import NewGroceryListItem from '../NewGroceryListItem'
 
 
 const mapStateToProps = (state) => {
@@ -13,15 +13,15 @@ mapDispatchToProps = (dispatch, props) => {
   return {
     onBackPressed: () => { goBack() },
     onSavePressed: () => {
-      dispatch({type: 'NEW_ITEM_SAVE_REQUEST'})
+      dispatch({type: 'GROCERY_LIST_ITEM_SAVE_REQUEST'})
       goBack()
     },
     onDescriptionChange: description => {
       dispatch({
         type: 'NEW_ITEM_DESCRIPTION',
-        description: description
+        name: description
       })
     }
   }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(NewInventoryItemScreen)
+export default connect(mapStateToProps, mapDispatchToProps)(NewGroceryListItem)

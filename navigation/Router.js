@@ -3,13 +3,13 @@ import {
 } from '@exponent/ex-navigation';
 
 import RootNavigation from './RootNavigation';
-import InventoryList from '../screens/firebase/FirebaseInventoryList';
-import FirebaseNewInventoryItemScreen from '../screens/firebase/FirebaseNewInventoryItemScreen';
+import GroceryList from '../screens/redux/GroceryList';
+import NewGroceryListItem from '../screens/redux/NewGroceryListItem';
 import BarcodeScreen from '../screens/BarcodeScreen'
 
 export default createRouter(() => ({
-  home: () => InventoryList,
-  newInventoryItem: () => FirebaseNewInventoryItemScreen,
+  home: () => GroceryList,
+  newGroceryListItem: () => NewGroceryListItem,
   barcode: () => BarcodeScreen,
   rootNavigation: () => RootNavigation,
 }));

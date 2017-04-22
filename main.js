@@ -30,9 +30,9 @@ import middleware from './redux/middleware'
 
 const store = createStore(reducers, {}, middleware())
 
-firebaseDb.inventory((data) => {
-  store.dispatch({ 
-    type: 'INVENTORY_LIST',
+firebaseDb.groceryList((data) => {
+  store.dispatch({
+    type: 'GROCERY_LIST',
     items: data
   })
 })
