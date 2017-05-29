@@ -9,7 +9,11 @@ export default ({ getState, dispatch }) => {
         return (action) => {
           switch(action.type){
             case 'GROCERY_LIST_ITEM_SAVE_REQUEST': {
-              saveItem(getState().newItem);
+              saveItem({
+                name: action.name,
+                quantity: action.quantity,
+                quantityType: action.quantityType
+              });
               break
             }
             default: {

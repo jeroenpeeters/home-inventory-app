@@ -1,0 +1,10 @@
+{
+  "exponentServerPort": 19000,
+  "packagerPort": 19002,
+  "packagerPid": 18838,
+  "exponentServerNgrokUrl": "https://au-x24.jeroenpeeters.home-inventory.exp.direct",
+  "packagerNgrokUrl": "https://packager.au-x24.jeroenpeeters.home-inventory.exp.direct",
+  "ngrokPid": 18896,
+  "expoServerPort": 19001,
+  "expoServerNgrokUrl": "https://au-x24.jeroenpeeters.home-inventory.exp.direct"
+}

@@ -12,8 +12,13 @@ mapDispatchToProps = (dispatch, props) => {
   const goBack = () => props.navigator.pop()
   return {
     onBackPressed: () => { goBack() },
-    onSavePressed: () => {
-      dispatch({type: 'GROCERY_LIST_ITEM_SAVE_REQUEST'})
+    onSavePressed: (name, quantity, quantityType) => {
+      dispatch({
+        type: 'GROCERY_LIST_ITEM_SAVE_REQUEST',
+        name: name,
+        quantity: quantity,
+        quantityType: quantityType
+      })
       goBack()
     },
     onDescriptionChange: description => {

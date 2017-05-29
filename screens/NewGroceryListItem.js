@@ -5,59 +5,63 @@ import { Header, Title, Footer, FooterTab, Button, Left, Right, Body, Icon, getT
 import { Form, Item, Input, Label, Picker } from 'native-base';
 const PickerItem = Picker.Item
 
-export default React.createClass({
-  onValueChange(a,b,c){
-    console.log('onValueChange',a,b,c);
-  },
-  render() {
-    const color = getTheme().variables.brandPrimary;
-    return (
-      <Container>
-        <Container style= {{flex: 0, height: Exponent.Constants.statusBarHeight, backgroundColor:color}} />
-        <Header>
-          <Left>
-            <Button transparent onPress={this.props.onBackPressed}>
-              <Icon name='md-arrow-back' />
-            </Button>
-          </Left>
-          <Body>
-            <Title>New item</Title>
-          </Body>
-          <Right>
-            <Button transparent onPress={this.props.onSavePressed}>
-              <Icon name='checkmark' />
-            </Button>
-          </Right>
-        </Header>
+import {withState, compose} from 'recompose'
 
-        <Content>
-          <Form>
-            <Item floatingLabel >
-              <Label>Description</Label>
-              <Input style={{paddingLeft:5}} onChangeText={this.props.onDescriptionChange}  />
-            </Item>
-            <Item>
-              <Input placeholder='Quantity' keyboardType="numeric" onChangeText={this.props.onDescriptionChange}  />
-              <Content>
-                <Picker
-                    iosHeader="Select one"
-                    mode="dropdown"
-                    selectedValue='x'
-                    onValueChange={this.onValueChange}>
-                    <PickerItem label="X" value="x" />
-                    <PickerItem label="gram" value="gr" />
-                    <PickerItem label="kilo" value="k" />
-                </Picker>
-              </Content>
-            </Item>
+const withName = withState('name', 'setName', '')
+const withQuantity = withState('quantity', 'setQuantity', '')
+const withQuantityType = withState('quantityType', 'setQuantityType', '')
+const withStateProps = compose(withName, withQuantity, withQuantityType)
+const color = getTheme().variables.brandPrimary
 
-            {/* <Item floatingLabel last>
-              <Label>Quantity</Label>
-              <Input onChangeText={this.props.onDescriptionChange}/>
-            </Item> */}
-          </Form>
-        </Content>
-      </Container>
-    );
-  }
-});
+const NewItemUI = withStateProps(({ name, quantity, quantityType, setName, setQuantity, setQuantityType, onBackPressed, onSavePressed }) => {
+  return (
+    <Container>
+      <Container style= {{flex: 0, height: Exponent.Constants.statusBarHeight, backgroundColor:color}} />
+      <Header>
+        <Left>
+          <Button transparent onPress={onBackPressed}>
+            <Icon name='md-arrow-back' />
+          </Button>
+        </Left>
+        <Body>
+          <Title>New item</Title>
+        </Body>
+        <Right>
+          <Button transparent onPress={() => onSavePressed(name, quantity, quantityType)}>
+            <Icon name='checkmark' />
+          </Button>
+        </Right>
+      </Header>
+
+      <Content>
+        <Form>
+          <Item floatingLabel >
+            <Label>Description {name} - {quantity} - {quantityType}</Label>
+            <Input style={{paddingLeft:5}} onChangeText={(name) => setName(name)}  />
+          </Item>
+          <Item>
+            <Input placeholder='Quantity' keyboardType="numeric" onChangeText={(quantity) => setQuantity(quantity)}  />
+            <Content>
+              <Picker
+                  iosHeader="Select one"
+                  mode="dropdown"
+                  selectedValue={quantityType}
+                  onValueChange={(quantityType) => setQuantityType(quantityType)}>
+                  <PickerItem label="times" value="times" />
+                  <PickerItem label="gram" value="gr" />
+                  <PickerItem label="kilo" value="k" />
+              </Picker>
+            </Content>
+          </Item>
+
+          {/* <Item floatingLabel last>
+            <Label>Quantity</Label>
+            <Input onChangeText={this.props.onDescriptionChange}/>
+          </Item> */}
+        </Form>
+      </Content>
+    </Container>
+  )
+})
+
+export default NewItemUI;

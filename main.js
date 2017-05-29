@@ -18,7 +18,8 @@ import {
 import Router from './navigation/Router';
 import cacheAssetsAsync from './utilities/cacheAssetsAsync';
 
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+import { composeWithDevTools } from 'remote-redux-devtools';
 import { Provider } from 'react-redux';
 import firebaseDb from './utilities/Firebase'
 
@@ -28,7 +29,7 @@ import { Container } from 'native-base';
 import reducers from './redux/reducers'
 import middleware from './redux/middleware'
 
-const store = createStore(reducers, {}, middleware())
+const store = createStore(reducers, {}, composeWithDevTools(middleware()))
 
 firebaseDb.groceryList((data) => {
   store.dispatch({

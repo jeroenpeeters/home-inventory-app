@@ -6,6 +6,13 @@ import stringify from '../utilities/stringify'
 import { Container, Content, ListItem, Text, List } from 'native-base';
 import { Header, Title, Footer, FooterTab, Button, Left, Right, Body, Icon, getTheme, Spinner } from 'native-base';
 
+const renderDetails = (item) => {
+  if(item.quantity && item.quantityType){
+    return `${item.quantity} ${item.quantityType}`
+  }
+  return ''
+}
+
 export default class InventoryList extends Component {
 
   render() {
@@ -16,7 +23,7 @@ export default class InventoryList extends Component {
         <ListItem key={item.name}>
           <Left>
             <Text>{item.name}</Text>
-            <Text note>Some details</Text>
+            <Text note>{renderDetails(item)}</Text>
           </Left>
           <Right>
             <Icon name="md-checkmark" style={{ color: '#0A69FE' }} />
